@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: bookingModule
+          uri: lb://BOOKING
+          predicates:
+            - Path=/api/v1/ordercar
+            - Method=POST
+          filters:
+            - RewritePath=/api/v1/ordercar(?<RID>.*), /api/v1/booking/$\{RID}
+        - id: bookingModule
+          uri: lb://BOOKING
+          predicates:
+            - Path=/api/v1/updateorder
+            - Method=PUT
+          filters:
+            - RewritePath=/api/v1/updateorder(?<RID>.*), /api/v1/booking/$\{RID}
+        - id: customerModule
+          uri: lb://customer
+          predicates:
+            - Path=/api/v1/customers/**
+            - Method=GET
+          filters:
+            - RewritePath=/api/v1/customers(?<RID>.*), /api/v1/customer/$\{RID}
+        - id: orderModule
+          uri: lb://order-api
+          predicates:
+            - Path=/api/v1/cars/**
+            - Method=GET
+          filters:
+            - RewritePath=/api/v1/cars(?<RID>.*), /api/v1/cars/$\{RID}
+        - id: carModule
+          uri: lb://cars
+          predicates:
+            - Path=/api/v1/addcar
+            - Method=POST
+          filters:
+            - RewritePath= /api/v1/addcar(?<RID>.*), /api/v1/car/$\{RID}
+        - id: carModule
+          uri: lb://cars
+          predicates:
+            - Path=/api/v1/deletecar
+            - Method=DELETE
+          filters:
+            - RewritePath=/api/v1/deletecar(?<RID>.*), /api/v1/car/$\{RID}
+        - id: carModule
+          uri: lb://cars
+          predicates:
+            - Path=/api/v1/updatecar
+            - Method=PUT
+          filters:
+            - RewritePath=/api/v1/updatecar(?<RID>.*), /api/v1/car/$\{RID}

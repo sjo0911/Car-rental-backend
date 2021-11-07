@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: CARS
+  datasource:
+    url: jdbc:mysql://remotemysql.com/Id2sOUhQc4?useUnicode=true&characterEncoding=utf8
+    username: Id2sOUhQc4
+    password: pQhQU8fPTh
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,beans"
+server:
+  port: 8084
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka

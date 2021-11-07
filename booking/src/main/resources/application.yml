@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: BOOKING
+  datasource:
+    url: jdbc:mysql://remotemysql.com/w1MBBd2P4C?useUnicode=true&characterEncoding=utf8
+    username: w1MBBd2P4C
+    password: jWrySQl35W
+server:
+  port: 8082
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,beans"

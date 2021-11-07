@@ -1,0 +1,4 @@
+spring.datasource.url=jdbc:mysql://remotemysql.com/Id2sOUhQc4?useUnicode=true&characterEncoding=utf8
+spring.datasource.username=Id2sOUhQc4
+spring.datasource.password=pQhQU8fPTh
+spring.h2.console.enabled=true

@@ -1,0 +1,17 @@
+stages:
+  - buildBooking
+  - testBooking
+
+image: maven:3.3.9-jdk-8
+
+build:
+  stage: buildBooking
+  script:
+    - cd booking && mvn package -DskipTests
+  artifacts:
+    paths:
+      - booking/target/ .jar
+test:
+  stage: testBooking
+  script:
+    - cd booking && mvn test

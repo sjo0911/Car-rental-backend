@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carscrud-deployment
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  selector:
+    matchLabels:
+      app: carscrud
+  replicas:
+  template:
+    metadata:
+      labels:
+        app: carscrud
+    spec:
+      containers:
+        - name: carscrud
+          image: sjo0911/cars:v1
+          ports:
+            - containerPort: 8080

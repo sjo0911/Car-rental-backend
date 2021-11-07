@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: customer
+  datasource:
+    url: jdbc:mysql://remotemysql.com/OuDGfBas0U?useUnicode=true&characterEncoding=utf8
+    username: OuDGfBas0U
+    password: NwnJRJwTOg
+server:
+  port: 8083
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
