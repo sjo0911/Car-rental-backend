@@ -1,17 +1,82 @@
 stages:
   - buildBooking
   - testBooking
+  - buildCar
+  - testCar
+  - buildCustomer
+  - testCustomer
+  - buildEureka
+  - testEureka
+  - buildGateway
+  - testGateway
+  - buildOrderApi
+  - testOrderApi
 
 image: maven:3.3.9-jdk-8
 
-build:
+buildBooking:
   stage: buildBooking
   script:
     - cd booking && mvn package -DskipTests
   artifacts:
     paths:
       - booking/target/ .jar
-test:
+testBooking:
   stage: testBooking
   script:
     - cd booking && mvn test
+buildCar:
+  stage: buildCar
+  script:
+    - cd Cars && mvn package -DskipTests
+  artifacts:
+    paths:
+      - Cars/target/ .jar
+testCar:
+  stage: testCar
+  script:
+    - cd Cars && mvn test
+buildCustomer:
+  stage: buildCustomer
+  script:
+    - cd customer && mvn package -DskipTests
+  artifacts:
+    paths:
+      - customer/target/ .jar
+testCustomer:
+  stage: testCustomer
+  script:
+    - cd customer && mvn test
+buildEureka:
+  stage: buildEureka
+  script:
+    - cd eurekadiscoveryserver && mvn package -DskipTests
+  artifacts:
+    paths:
+      - eurekadiscoveryserver/target/ .jar
+testEureka:
+  stage: testEureka
+  script:
+    - cd eurekadiscoveryserver && mvn test
+buildGateway:
+  stage: buildGateway
+  script:
+    - cd gateway && mvn package -DskipTests
+  artifacts:
+    paths:
+      - gateway/target/ .jar
+testGateway:
+  stage: testGateway
+  script:
+    - cd gateway && mvn test
+buildOrderApi:
+  stage: buildOrderApi
+  script:
+    - cd orderapi && mvn package -DskipTests
+  artifacts:
+    paths:
+      - gateway/target/ .jar
+testOrderApi:
+  stage: testOrderApi
+  script:
+    - cd orderapi && mvn test
