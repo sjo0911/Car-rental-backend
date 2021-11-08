@@ -3,6 +3,8 @@ package com.jonasson.booking.controller;
 import com.jonasson.booking.dto.BookingDto;
 import com.jonasson.booking.exception.AlreadyBookedException;
 import com.jonasson.booking.service.BookingService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +23,32 @@ public class BookingController {
     @GetMapping("/")
     private List<BookingDto> getBookings(){return bookingService.findBookings();}
 
+    private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
+
     //TODO fixa en mer initiv address för att hämta id:s
     @GetMapping("/bookings/{fromDate}/{toDate}")
     private List<Long> getCaridsBookedBetweenDates(@PathVariable("fromDate") String fromDateString, @PathVariable("toDate") String toDateString){
+        logger.info("Någon anropade getCarIdsBookedBetweenDates");
         Date fromDate = Date.valueOf(fromDateString);
         Date toDate = Date.valueOf(toDateString);
         return bookingService.getAllCarIdsBookedBetweenDates(fromDate, toDate);
     }
 
     @GetMapping("/{id}")
-    private  BookingDto getBooking(@PathVariable("id") Long id){return bookingService.findBookingsById(id);}
+    private  BookingDto getBooking(@PathVariable("id") Long id){
+        logger.info("Någon hämtade en bokning med id " + id);
+        return bookingService.findBookingsById(id);
+    }
+
+    @GetMapping("/customersbooking/{id}")
+    private  List<BookingDto> getCustomersBookings(@PathVariable("id") Long customerId){
+        logger.info("En kund hämtade sina bokningar");
+        return bookingService.getCustomerBookings(customerId);
+    }
 
     @PostMapping("/")
     private ResponseEntity postBooking(@RequestBody BookingDto booking){
+        logger.info("Någon skapade en bokning");
         try {
             return new ResponseEntity<BookingDto>(bookingService.postUpdateBooking(booking), HttpStatus.CREATED);
         } catch (AlreadyBookedException e) {
@@ -45,6 +60,7 @@ public class BookingController {
 
     @PutMapping("/")
     private ResponseEntity updateBooking(@RequestBody BookingDto booking){
+        logger.info("Någon ändrade en bokning");
         try {
             return new ResponseEntity<BookingDto>(bookingService.postUpdateBooking(booking), HttpStatus.CREATED);
         } catch (AlreadyBookedException e) {
@@ -55,5 +71,10 @@ public class BookingController {
     }
 
     @DeleteMapping("/{id}")
-    private void deleteCustomer(@PathVariable("id") Long id){bookingService.deleteBooking(id);}
+    private void deleteCustomer(@PathVariable("id") Long id){
+        logger.info("Någon tog bort en bokning");
+        bookingService.deleteBooking(id);
+    }
+
+
 }

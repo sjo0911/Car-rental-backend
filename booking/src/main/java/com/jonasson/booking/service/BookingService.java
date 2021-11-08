@@ -23,6 +23,7 @@ public class BookingService {
     public BookingDto findBookingsById(Long id){return EntityVoMapper.bookingEntityToDto(bookingRepository.getById(id));}
 
     public BookingDto postUpdateBooking(BookingDto booking) throws AlreadyBookedException, ValidationException {
+        booking.setActive(true);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<BookingDto>> violations = validator.validate(booking);
@@ -37,7 +38,15 @@ public class BookingService {
 
     }
 
-    public void deleteBooking(Long id){bookingRepository.deleteById(id);}
+    public List<BookingDto> getCustomerBookings(Long id){
+        return EntityVoMapper.bookingEntityListToDtoList(bookingRepository.getCustomersBookings(id));
+    }
+
+    public void deleteBooking(Long id){
+        Booking booking = bookingRepository.getById(id);
+        booking.setActive(false);
+        bookingRepository.save(booking);
+    }
 
     public List<Long> getAllCarIdsBookedBetweenDates(Date fromDate, Date toDate){
         return bookingRepository.getAllCarIdsBookedBetweenDates(fromDate,toDate);

@@ -16,6 +16,7 @@ public class EntityVoMapper {
         Date toDate = Date.valueOf(booking.getToDate().toString());
         bookingDto.setFromDate(fromDate);
         bookingDto.setToDate(toDate);
+        bookingDto.setActive(booking.isActive());
         if(booking.getId() != null)
             bookingDto.setId(booking.getId());
         return bookingDto;
@@ -29,6 +30,7 @@ public class EntityVoMapper {
         Date toDate = Date.valueOf(bookingDto.getToDate().toString());
         booking.setFromDate(fromDate);
         booking.setToDate(toDate);
+        booking.setActive(bookingDto.isActive());
         if(bookingDto.getId() != null)
             booking.setId(bookingDto.getId());
         return booking;

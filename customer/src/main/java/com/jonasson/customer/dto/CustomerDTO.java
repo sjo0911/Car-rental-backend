@@ -1,20 +1,13 @@
-package com.jonasson.customer.entity;
+package com.jonasson.customer.dto;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name="Customer")
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CustomerDTO {
     private Long id;
     private String firstName;
     private String lastName;
     private String socialSecurityNumber;
     private String email;
-    @ManyToOne
-    @JoinColumn(name = "address")
-    private Address address;
+    private AddressDTO address;
 
     public Long getId() {
         return id;
@@ -56,11 +49,11 @@ public class Customer {
         this.email = email;
     }
 
-    public Address getAddress() {
+    public AddressDTO getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressDTO address) {
         this.address = address;
     }
 }

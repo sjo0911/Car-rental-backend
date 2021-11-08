@@ -13,6 +13,8 @@ public class BookingDto {
     private Date fromDate;
     @NotNull(message = "Date to rent to has not been selected")
     private Date toDate;
+    @NotNull(message = "Status on order has not been selected")
+    private boolean active;
 
     public Long getId() {
         return Id;
@@ -52,5 +54,13 @@ public class BookingDto {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

@@ -75,7 +75,7 @@ buildOrderApi:
     - cd orderapi && mvn package -DskipTests
   artifacts:
     paths:
-      - gateway/target/ .jar
+      - orderapi/target/ .jar
 testOrderApi:
   stage: testOrderApi
   script:

@@ -1,5 +1,6 @@
 package com.jonasson.booking.controller;
 
+import com.jonasson.booking.dto.BookingDto;
 import com.jonasson.booking.entity.Booking;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
@@ -35,15 +35,22 @@ class BookingControllerTest {
     @Test
     @DisplayName("BOOKING REST can get all bookings")
     void getAll(){
-        Booking[] bookings = testRestTemplate.getForObject("/api/v1/booking/", Booking[].class);
-        assertEquals(3, bookings.length);
+        BookingDto[] bookings = testRestTemplate.getForObject("/api/v1/booking/", BookingDto[].class);
+        assertEquals(4, bookings.length);
     }
 
     @Test
     @DisplayName("BOOKING REST can get booking by id 1 that should contain a customer id equal to 1")
     void getBYId(){
-        Booking booking = testRestTemplate.getForObject("/api/v1/booking/1/", Booking.class);
+        BookingDto booking = testRestTemplate.getForObject("/api/v1/booking/1/", BookingDto.class);
         assertEquals(1, booking.getCustomerId());
+    }
+
+    @Test
+    @DisplayName("BOOKING REST can get customers bookings")
+    void getCustomersBookings(){
+        BookingDto[] bookings = testRestTemplate.getForObject("/api/v1/booking/customersbooking/1/", BookingDto[].class);
+        assertEquals(2, bookings.length);
     }
 
     @Test
@@ -88,5 +95,13 @@ class BookingControllerTest {
     void getBeetweenDates(){
         Long[] carIds = testRestTemplate.getForObject("/api/v1/booking/bookings/2021-11-06/2021-11-14/", Long[].class);
         assertEquals(2, carIds.length);
+    }
+
+    @Test
+    @DisplayName("BOOKING REST sets active to false when delete is called")
+    void deleteBooking(){
+        testRestTemplate.delete("/api/v1/booking/4/");
+        BookingDto booking = testRestTemplate.getForObject("/api/v1/booking/4/", BookingDto.class);
+        assertFalse(booking.isActive());
     }
 }

@@ -15,6 +15,7 @@ public class Booking {
     private Long carId;
     private Date fromDate;
     private Date toDate;
+    private boolean active;
 
     public Long getId() {
         return Id;
@@ -54,5 +55,13 @@ public class Booking {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
