@@ -75,7 +75,3 @@ buildOrderApi:
   artifacts:
     paths:
       - orderapi/target/ .jar
-testOrderApi:
-  stage: testOrderApi
-  script:
-    - cd orderapi && mvn test
