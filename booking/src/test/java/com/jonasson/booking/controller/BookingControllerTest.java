@@ -71,7 +71,7 @@ class BookingControllerTest {
         Booking booking = new Booking();
         booking.setCustomerId((long) 3);
         booking.setCarId((long) 1);
-        booking.setId((long) 3);
+        booking.setId((long) 5);
         booking.setFromDate(Date.valueOf("2021-11-08"));
         booking.setToDate(Date.valueOf("2021-11-09"));
         String res = testRestTemplate.postForObject("/api/v1/booking/", booking, String.class);
@@ -83,7 +83,7 @@ class BookingControllerTest {
     void postBookingWithoutCarId(){
         Booking booking = new Booking();
         booking.setCustomerId((long) 3);
-        booking.setId((long) 3);
+        booking.setId((long) 5);
         booking.setFromDate(Date.valueOf("2021-11-08"));
         booking.setToDate(Date.valueOf("2021-11-09"));
         String res = testRestTemplate.postForObject("/api/v1/booking/", booking, String.class);
@@ -100,8 +100,10 @@ class BookingControllerTest {
     @Test
     @DisplayName("BOOKING REST sets active to false when delete is called")
     void deleteBooking(){
-        testRestTemplate.delete("/api/v1/booking/4/");
-        BookingDto booking = testRestTemplate.getForObject("/api/v1/booking/4/", BookingDto.class);
-        assertFalse(booking.isActive());
+        BookingDto bookingBefore = testRestTemplate.getForObject("/api/v1/booking/4/", BookingDto.class);
+        testRestTemplate.put("/api/v1/booking/cancelorder/", bookingBefore);
+        BookingDto bookingAfter = testRestTemplate.getForObject("/api/v1/booking/4/", BookingDto.class);
+        assertTrue(bookingBefore.isActive());
+        assertFalse(bookingAfter.isActive());
     }
 }
