@@ -1,5 +1,6 @@
 package com.jonasson.cars.controller;
 
+import com.jonasson.cars.dto.CarDTO;
 import com.jonasson.cars.entity.Car;
 import com.jonasson.cars.service.CarService;
 import org.slf4j.Logger;
@@ -18,24 +19,24 @@ public class CarController {
     private static final Logger logger = LoggerFactory.getLogger(CarController.class);
 
     @GetMapping("/")
-    private List<Car> getCars(){
+    private List<CarDTO> getCars(){
         logger.info("Någon hämtade en lista med alla bilar");
         return carService.findCars();}
 
     @GetMapping("/{id}")
-    private  Car getCar(@PathVariable("id") Long id){
+    private  CarDTO getCar(@PathVariable("id") Long id){
         logger.info("Någon hämtade bil med id " + id);
         return carService.findCar(id);
     }
 
     @PostMapping("/")
-    private Car postCar(@RequestBody Car car){
+    private CarDTO postCar(@RequestBody Car car){
         logger.info("Någon postade en bil");
         return carService.postCar(car);
     }
 
     @PutMapping("/")
-    private Car updateCar(@RequestBody Car car){
+    private CarDTO updateCar(@RequestBody Car car){
         logger.info("Någon updaterade en bil");
         return carService.postCar(car);}
 
@@ -43,4 +44,6 @@ public class CarController {
     private void deleteCar(@PathVariable("id") Long id){
         logger.info("Någon tog bort en bil");
         carService.deleteCar(id);}
+
+
 }

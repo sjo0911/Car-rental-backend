@@ -70,10 +70,10 @@ public class BookingController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    private void deleteCustomer(@PathVariable("id") Long id){
+    @PutMapping("/cancelorder")
+    private void deleteCustomer(@RequestBody BookingDto booking){
         logger.info("Någon tog bort en bokning");
-        bookingService.deleteBooking(id);
+        bookingService.deleteBooking(booking.getId());
     }
 
 

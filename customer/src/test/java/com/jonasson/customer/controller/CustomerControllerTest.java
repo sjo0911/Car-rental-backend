@@ -1,6 +1,5 @@
 package com.jonasson.customer.controller;
 
-import com.jonasson.customer.dto.AddressDTO;
 import com.jonasson.customer.dto.CustomerDTO;
 import com.jonasson.customer.entity.Address;
 import com.jonasson.customer.entity.Customer;
@@ -14,11 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

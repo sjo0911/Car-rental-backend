@@ -22,10 +22,17 @@ spring:
         - id: bookingModule
           uri: lb://BOOKING
           predicates:
-            - Path=/api/v1/updateorder
+            - Path=/api/v1/updateorder/**
             - Method=PUT
           filters:
-            - RewritePath=/api/v1/updateorder(?<RID>.*), /api/v1/booking/$\{RID}
+            - RewritePath=/api/v1/updateorder(?<RID>.*), /api/v1/booking/cancelorder$\{RID}
+        - id: bookingModule
+          uri: lb://BOOKING
+          predicates:
+            - Path=/api/v1/myorders/**
+            - Method=GET
+          filters:
+            - RewritePath=/api/v1/myorders(?<RID>.*), /api/v1/booking/customersbooking/$\{RID}
         - id: customerModule
           uri: lb://customer
           predicates:
@@ -50,7 +57,7 @@ spring:
         - id: carModule
           uri: lb://cars
           predicates:
-            - Path=/api/v1/deletecar
+            - Path=/api/v1/deletecar/**
             - Method=DELETE
           filters:
             - RewritePath=/api/v1/deletecar(?<RID>.*), /api/v1/car/$\{RID}

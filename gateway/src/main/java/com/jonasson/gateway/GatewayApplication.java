@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 @EnableEurekaClient
 @SpringBootApplication
-@EnableWebFluxSecurity
 public class GatewayApplication {
 
 	public static void main(String[] args) {
