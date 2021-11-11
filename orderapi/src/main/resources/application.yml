@@ -7,3 +7,8 @@ eureka:
 spring:
   application:
     name: ORDER-API
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,beans"

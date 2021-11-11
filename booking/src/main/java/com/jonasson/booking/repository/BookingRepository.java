@@ -23,10 +23,11 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "(?1 BETWEEN b.fromDate AND b.toDate AND b.carId = ?3 AND b.active = TRUE) OR " +
             "(?2 BETWEEN b.fromDate AND b.toDate AND b.carId = ?3 AND b.active = TRUE)")
     List<Booking> checkIfCarIsBooked(Date from, Date to, Long Carid);
+    //Returns a list of all booked cars
     @Query("SELECT b.carId FROM Booking b where (b.fromDate BETWEEN ?1 AND ?2) OR " +
             "(b.toDate BETWEEN ?1 AND ?2 AND b.active = TRUE) OR (?1 BETWEEN b.fromDate AND b.toDate) OR " +
             "(?2 BETWEEN b.fromDate AND b.toDate AND b.active = TRUE)")
     List<Long> getAllCarIdsBookedBetweenDates(Date from, Date to);
-    @Query("FROM Booking b where b.customerId = ?1")
+    @Query("FROM Booking b where b.customerId = ?1S")
     List<Booking> getCustomersBookings(Long id);
 }

@@ -71,7 +71,7 @@ public class BookingController {
     }
 
     @PutMapping("/cancelorder")
-    private void deleteCustomer(@RequestBody BookingDto booking){
+    private void deleteBooking(@RequestBody BookingDto booking){
         logger.info("Någon tog bort en bokning");
         bookingService.deleteBooking(booking.getId());
     }
