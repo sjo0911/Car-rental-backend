@@ -51,4 +51,8 @@ public class BookingService {
     public List<Long> getAllCarIdsBookedBetweenDates(Date fromDate, Date toDate){
         return bookingRepository.getAllCarIdsBookedBetweenDates(fromDate,toDate);
     }
+
+    public List<BookingDto> getActiveBookingsWithCar(Long id){
+        return EntityVoMapper.bookingEntityListToDtoList(bookingRepository.getActiveBookingsWithCar(id));
+    }
 }

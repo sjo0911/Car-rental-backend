@@ -1,21 +1,10 @@
-package com.jonasson.customer.entity;
+package com.jonasson.orderapi.model;
 
-import javax.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-@Table(name="Address")
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String street;
     private int streetNumber;
     private String city;
-    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Customer> customers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -47,13 +36,5 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
     }
 }

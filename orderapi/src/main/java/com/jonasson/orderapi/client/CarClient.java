@@ -26,4 +26,9 @@ public class CarClient {
     public Mono<Car[]> getAllCars() {
         return client.get().retrieve().bodyToMono(Car[].class);
     }
+
+    public Mono<Car> getCarById(Long id) {return client.get().uri("/"+ id).retrieve().bodyToMono(Car.class);}
+
+    public void deleteCarById(Long id) {client.delete().uri("/" + id).retrieve().bodyToMono(Void.class).block();}
+
 }

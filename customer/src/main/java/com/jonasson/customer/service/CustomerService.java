@@ -28,4 +28,8 @@ public class CustomerService {
         return customerRepository.save(customer);}
 
     public void deleteCustomer(Long id){customerRepository.deleteById(id);}
+
+    public CustomerDTO getCustomerByUsername(String username) {
+        return Mapper.customerToDto(customerRepository.getCustomersByUsername(username));
+    }
 }

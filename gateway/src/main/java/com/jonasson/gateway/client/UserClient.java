@@ -1,7 +1,5 @@
-package com.jonasson.orderapi.client;
+package com.jonasson.gateway.client;
 
-import com.jonasson.orderapi.model.Car;
-import com.jonasson.orderapi.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -11,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
 @Component
-public class CustomerClient {
+public class UserClient {
     private final String CUSTOMER_MICROSERVICE_NAME = "customer";
     private WebClient client;
 
@@ -24,7 +22,8 @@ public class CustomerClient {
         client = WebClient.create(service.getUri().toString() + "/api/v1/customer/");
     }
 
-    public Mono<Customer[]> getCustomer() {
-        return client.get().uri("/").retrieve().bodyToMono(Customer[].class);
+    public Mono<Customer[]> getCustomers() {
+        return client.get().retrieve().bodyToMono(Customer[].class);
     }
+
 }

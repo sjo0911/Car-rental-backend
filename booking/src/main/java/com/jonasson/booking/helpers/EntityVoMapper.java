@@ -4,6 +4,7 @@ import com.jonasson.booking.dto.BookingDto;
 import com.jonasson.booking.entity.Booking;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,10 @@ public class EntityVoMapper {
         bookingDto.setFromDate(fromDate);
         bookingDto.setToDate(toDate);
         bookingDto.setActive(booking.isActive());
+        Date today = new Date(new java.util.Date().getTime());
+        if(today.getTime() > toDate.getTime()){
+            bookingDto.setActive(false);
+        }
         if(booking.getId() != null)
             bookingDto.setId(booking.getId());
         return bookingDto;

@@ -29,6 +29,8 @@ public class CustomerController {
         logger.info("Någon hämta kund med id " + id);
         return customerService.findCustomerById(id);}
 
+
+
     @PostMapping("/")
     private Customer postCustomer(@RequestBody Customer customer){
         logger.info("Någon skapade ny kund");

@@ -2,9 +2,15 @@ spring:
   application:
     name: BOOKING
   datasource:
-    url: jdbc:mysql://remotemysql.com/w1MBBd2P4C?useUnicode=true&characterEncoding=utf8
-    username: w1MBBd2P4C
-    password: jWrySQl35W
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: simon
+    password: simon
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
 server:
   port: 8082
 eureka:

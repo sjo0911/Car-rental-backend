@@ -2,14 +2,15 @@ spring:
   application:
     name: CARS
   datasource:
-    url: jdbc:mysql://remotemysql.com/Id2sOUhQc4?useUnicode=true&characterEncoding=utf8
-    username: Id2sOUhQc4
-    password: pQhQU8fPTh
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "health,beans"
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: simon
+    password: simon
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
 server:
   port: 8084
 eureka:

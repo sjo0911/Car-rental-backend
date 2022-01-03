@@ -46,6 +46,12 @@ public class BookingController {
         return bookingService.getCustomerBookings(customerId);
     }
 
+    @GetMapping("/carsactivebookings/{id}")
+    private  List<BookingDto> getCarsActiveBookings(@PathVariable("id") Long carId){
+        logger.info("Någon hämtade alla aktiva bokningar på en bil");
+        return bookingService.getActiveBookingsWithCar(carId);
+    }
+
     @PostMapping("/")
     private ResponseEntity postBooking(@RequestBody BookingDto booking){
         logger.info("Någon skapade en bokning");

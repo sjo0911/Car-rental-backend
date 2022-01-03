@@ -17,7 +17,7 @@ public class CarController {
     CarService carService;
 
     private static final Logger logger = LoggerFactory.getLogger(CarController.class);
-
+    
     @GetMapping("/")
     private List<CarDTO> getCars(){
         logger.info("Någon hämtade en lista med alla bilar");
@@ -30,20 +30,20 @@ public class CarController {
     }
 
     @PostMapping("/")
-    private CarDTO postCar(@RequestBody Car car){
+    private CarDTO postCar(@RequestBody CarDTO car){
         logger.info("Någon postade en bil");
         return carService.postCar(car);
     }
 
     @PutMapping("/")
-    private CarDTO updateCar(@RequestBody Car car){
+    private CarDTO updateCar(@RequestBody CarDTO car){
         logger.info("Någon updaterade en bil");
         return carService.postCar(car);}
 
     @DeleteMapping("/{id}")
-    private void deleteCar(@PathVariable("id") Long id){
+    private CarDTO deleteCar(@PathVariable("id") Long id){
         logger.info("Någon tog bort en bil");
-        carService.deleteCar(id);}
+        return carService.deleteCar(id);}
 
 
 }

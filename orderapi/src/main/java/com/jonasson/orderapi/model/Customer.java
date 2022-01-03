@@ -1,22 +1,23 @@
-package com.jonasson.customer.entity;
+package com.jonasson.orderapi.model;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name="Customer")
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userName;
     private String firstName;
     private String lastName;
     private String socialSecurityNumber;
     private String email;
-    private String password;
-    @ManyToOne
-    @JoinColumn(name = "address")
     private Address address;
+    private String password;
+    private int numOfBookings;
+
+    public int getNumOfBookings() {
+        return numOfBookings;
+    }
+
+    public void setNumOfBookings(int numOfBookings) {
+        this.numOfBookings = numOfBookings;
+    }
 
     public String getUserName() {
         return userName;
@@ -81,4 +82,6 @@ public class Customer {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+
 }

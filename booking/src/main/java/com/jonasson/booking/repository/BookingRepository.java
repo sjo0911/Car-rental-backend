@@ -29,4 +29,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Long> getAllCarIdsBookedBetweenDates(Date from, Date to);
     @Query("FROM Booking b where b.customerId = ?1")
     List<Booking> getCustomersBookings(Long id);
+
+    @Query("FROM Booking b where (b.carId = ?1 AND b.active = TRUE)")
+    List<Booking> getActiveBookingsWithCar(Long id);
 }

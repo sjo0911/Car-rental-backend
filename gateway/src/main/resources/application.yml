@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8087
 
 eureka:
   client:
@@ -11,6 +11,32 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: '*'
+            allowed-methods:
+              - "GET"
+              - "POST"
+              - "PUT"
+              - "DELETE"
+              - "HEAD"
+              - "OPTIONS"
+            allowed-headers:
+              - "Origin"
+              - "Content-Type"
+              - "Accept"
+              - "Authorization"
+              - "User-Key"
+              - "Request-Tracker"
+              - "Session-Tracker"
+              - "X-XSRF-TOKEN"
+              - "X-IBM-CLIENT-ID"
+              - "Message-ID"
+              - "X-IBM-CLIENT-SECRET"
+        add-to-simple-url-handler-mapping: true
       routes:
         - id: bookingModule
           uri: lb://BOOKING
@@ -25,7 +51,7 @@ spring:
             - Path=/api/v1/updateorder/**
             - Method=PUT
           filters:
-            - RewritePath=/api/v1/updateorder(?<RID>.*), /api/v1/booking/cancelorder$\{RID}
+            - RewritePath=/api/v1/updateorder(?<RID>.*), /api/v1/booking/$\{RID}
         - id: bookingModule
           uri: lb://BOOKING
           predicates:
@@ -40,6 +66,13 @@ spring:
             - Method=GET
           filters:
             - RewritePath=/api/v1/customers(?<RID>.*), /api/v1/customer/$\{RID}
+        - id: customerModule
+          uri: lb://customer
+          predicates:
+            - Path=/api/v1/singlecustomer/**
+            - Method=GET
+          filters:
+            - RewritePath=/api/v1/singlecustomer(?<RID>.*), /api/v1/singlecustomer/$\{RID}
         - id: orderModule
           uri: lb://order-api
           predicates:
@@ -57,10 +90,17 @@ spring:
         - id: carModule
           uri: lb://cars
           predicates:
+            - Path=/api/v1/getcar/**
+            - Method=GET
+          filters:
+            - RewritePath= /api/v1/getcar(?<RID>.*), /api/v1/car/$\{RID}
+        - id: orderModule
+          uri: lb://order-api
+          predicates:
             - Path=/api/v1/deletecar/**
             - Method=DELETE
           filters:
-            - RewritePath=/api/v1/deletecar(?<RID>.*), /api/v1/car/$\{RID}
+            - RewritePath=/api/v1/deletecar(?<RID>.*), /api/v1/cars/$\{RID}
         - id: carModule
           uri: lb://cars
           predicates:
@@ -68,3 +108,10 @@ spring:
             - Method=PUT
           filters:
             - RewritePath=/api/v1/updatecar(?<RID>.*), /api/v1/car/$\{RID}
+        - id: orderModule
+          uri: lb://order-api
+          predicates:
+            - Path=/api/v1/customerswithnumberoforders/**
+            - Method=GET
+          filters:
+            - RewritePath=/api/v1/customerswithnumberoforders(?<RID>.*), /api/v1/customers/$\{RID}

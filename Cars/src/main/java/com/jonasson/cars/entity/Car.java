@@ -14,6 +14,16 @@ public class Car {
     private String name;
     @Column
     private String model;
+    @Column
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public Long getId() {
         return id;

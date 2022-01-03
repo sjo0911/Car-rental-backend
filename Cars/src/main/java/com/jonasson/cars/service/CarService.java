@@ -16,16 +16,18 @@ public class CarService {
     private CarRepository carRepository;
 
     public List<CarDTO> findCars(){
-        return Mapper.toCarDTOS(carRepository.findAll());
+        return Mapper.toCarDTOS(carRepository.getActiveCars());
     }
 
     public CarDTO findCar(Long id){return Mapper.toCarDTO(carRepository.getById(id));}
 
-    public CarDTO postCar(Car car){
-        return Mapper.toCarDTO(carRepository.save(car));
+    public CarDTO postCar(CarDTO car){
+        return Mapper.toCarDTO(carRepository.save(Mapper.toCar(car)));
     }
 
-    public void deleteCar(Long id){
-        carRepository.deleteById(id);
+    public CarDTO deleteCar(Long id){
+        Car carToDelete = carRepository.getById(id);
+        carToDelete.setActive(false);
+        return Mapper.toCarDTO(carRepository.save(carToDelete));
     }
 }
