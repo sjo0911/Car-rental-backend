@@ -82,7 +82,7 @@ public class SecurityConfig {
                 .hasRole("USER")
                 .pathMatchers("/api/v1/getcar/**")
                 .hasRole("USER")
-                .pathMatchers("/api/v1/customerswithnumberoforders/**")
+                .pathMatchers("/api/v1/Scustomerswithnumberoforders/**")
                 .hasRole("ADMIN")
                 .and()
                 .httpBasic()

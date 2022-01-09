@@ -38,6 +38,21 @@ public class BookingService {
 
     }
 
+    public BookingDto updateBooking(BookingDto booking) throws AlreadyBookedException, ValidationException {
+        booking.setActive(true);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<BookingDto>> violations = validator.validate(booking);
+        if(violations.size() != 0){
+            throw new ValidationException(violations.toArray()[0].toString());
+        }
+        if(bookingRepository.checkIfCarIsBookedUpdateBooking(booking.getFromDate(), booking.getToDate(), booking.getCarId(), booking.getId()).size() >= 1){
+            throw new AlreadyBookedException("Car is already booked");
+        } else {
+            return EntityVoMapper.bookingEntityToDto(bookingRepository.save(EntityVoMapper.bookingDtoToEntity(booking)));
+        }
+    }
+
     public List<BookingDto> getCustomerBookings(Long id){
         return EntityVoMapper.bookingEntityListToDtoList(bookingRepository.getCustomersBookings(id));
     }

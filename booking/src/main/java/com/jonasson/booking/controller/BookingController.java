@@ -68,7 +68,7 @@ public class BookingController {
     private ResponseEntity updateBooking(@RequestBody BookingDto booking){
         logger.info("Någon ändrade en bokning");
         try {
-            return new ResponseEntity<BookingDto>(bookingService.postUpdateBooking(booking), HttpStatus.CREATED);
+            return new ResponseEntity<BookingDto>(bookingService.updateBooking(booking), HttpStatus.CREATED);
         } catch (AlreadyBookedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (ValidationException e) {

@@ -1,3 +1,5 @@
 INSERT INTO Address (id, street, street_number, city ) VALUES (1, 'gatan', 13, 'Skellefteå');
 INSERT INTO Customer (id, user_name, password ,first_name, last_name, social_security_number, email, address) VALUES (1, 'simons', 'simons', 'Simon', 'Jonasson', '19870911-0000', 'simon@example.com', 1);
 INSERT INTO Customer (id, user_name, password ,first_name, last_name, social_security_number, email, address) VALUES (2, 'admin', 'admin', 'Simon', 'Jonasson', '19870911-0000', 'simon@example.com', 1);
+INSERT INTO Customer (id, user_name, password ,first_name, last_name, social_security_number, email, address) VALUES (3, 'sven', 'sven', 'Sven', 'Svensson', '19880911-0000', 'sven@example.com', 1);
+INSERT INTO Customer (id, user_name, password ,first_name, last_name, social_security_number, email, address) VALUES (4, 'user', 'user', 'Erik', 'Eriksson', '19890911-0000', 'erik@example.com', 1);

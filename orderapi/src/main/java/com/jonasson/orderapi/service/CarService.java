@@ -3,6 +3,7 @@ package com.jonasson.orderapi.service;
 import com.jonasson.orderapi.client.BookingClient;
 import com.jonasson.orderapi.client.CarClient;
 
+import com.jonasson.orderapi.model.AffectedBooking;
 import com.jonasson.orderapi.model.Booking;
 import com.jonasson.orderapi.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,26 +39,36 @@ public class CarService {
         return getFreeCarsBetweenDates(LocalDate.now().toString(), LocalDate.now().plusDays(1).toString());
     }
 
-    public void deleteCar(Long id){
+    public List<AffectedBooking> deleteCar(Long id){
         Car carToDelete = carClient.getCarById(id).block();
         List<Booking> bookingsAffected = Arrays.asList(bookingClient.getActiveBookingsWithCar(carToDelete.getId()).block());
+        List<AffectedBooking> affectedBookings = new ArrayList<>();
         bookingsAffected.forEach(booking -> {
-            List<Car> freeCars = getFreeCarsBetweenDates(booking.getFromDate().toString(), booking.getToDate().toString());
-            if(freeCars.size() == 0){
-                booking.setCarId((long) 0);
-            } else {
-                List<Car> filteredCarsByModel = freeCars.stream()
-                        .filter(car -> car.getModel() == carToDelete.getModel()).collect(Collectors.toList());
-                if(filteredCarsByModel.size() != 0){
-                    booking.setCarId(filteredCarsByModel.get(0).getId());
+            if(booking.isActive()){
+                AffectedBooking affectedBooking = new AffectedBooking();
+                affectedBooking.setId(booking.getId());
+                List<Car> freeCars = getFreeCarsBetweenDates(booking.getFromDate().toString(), booking.getToDate().toString());
+                if(freeCars.size() == 0){
+                    affectedBooking.setNewCarName("No free cars");
+                    booking.setCarId((long) 0);
                 } else {
-                    booking.setCarId(freeCars.get(0).getId());
+                    List<Car> filteredCarsByModel = freeCars.stream()
+                            .filter(car -> car.getModel().equals(carToDelete.getModel())).collect(Collectors.toList());
+                    if(filteredCarsByModel.size() != 0){
+                        booking.setCarId(filteredCarsByModel.get(0).getId());
+                        affectedBooking.setNewCarName(filteredCarsByModel.get(0).getName());
+                    } else {
+                        booking.setCarId(freeCars.get(0).getId());
+                        affectedBooking.setNewCarName(freeCars.get(0).getName());
+                    }
                 }
+                bookingClient.updateBooking(booking).block();
+                affectedBookings.add(affectedBooking);
             }
-            bookingClient.updateBooking(booking).block();
         });
         System.out.println("hej");
         carClient.deleteCarById(id);
+        return affectedBookings;
     }
 
 

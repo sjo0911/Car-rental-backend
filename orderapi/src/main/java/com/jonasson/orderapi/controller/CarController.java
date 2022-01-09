@@ -1,5 +1,6 @@
 package com.jonasson.orderapi.controller;
 
+import com.jonasson.orderapi.model.AffectedBooking;
 import com.jonasson.orderapi.model.Car;
 import com.jonasson.orderapi.model.Customer;
 import com.jonasson.orderapi.service.CarService;
@@ -30,7 +31,7 @@ public class CarController {
     private List<Customer> getCustomersWithNumOfBookings(){return customerService.getCustomersWithNumberOfBookings();}
 
     @DeleteMapping("/cars/{id}")
-    private void deleteCar(@PathVariable("id") Long id){
-        carService.deleteCar(id);
+    private List<AffectedBooking> deleteCar(@PathVariable("id") Long id){
+        return carService.deleteCar(id);
     }
 }
