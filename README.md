@@ -10,7 +10,7 @@ with that project in a couple of weeks.
 
 ## Usage
 
-Since deployment.yaml is'nt finished yet the easiest way is to start all of the microservices with:
+Since deployment.yaml is'nt finished yet the easiest way is to start each of the microservices with:
 ```bash
 mvn spring-boot:run
 ```
