@@ -25,32 +25,22 @@ import java.util.List;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
-    @Autowired
-    UserClient userClient;
 
     @Bean
     public MapReactiveUserDetailsService userDetailsRepository() {
-
         List<UserDetails> users = new ArrayList<UserDetails>();
-        Customer customers[] = userClient.getCustomers().block();
-
-        for (Customer customer : customers) {
-            if(customer.getUserName() != "admin") {
-                UserDetails user = User.withDefaultPasswordEncoder()
-                        .username(customer.getUserName())
-                        .password(customer.getPassword())
-                        .roles("USER")
-                        .build();
-                users.add(user);
-            }
-        }
-
-
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("admin")
-                .roles("USER", "ADMIN")
-                .build();
+        UserDetails user = User.withDefaultPasswordEncoder()
+        .username("user")
+        .password("user")
+        .roles("USER")
+        .build();
+            users.add(user);
+        
+            UserDetails admin = User.withDefaultPasswordEncoder()
+            .username("admin")
+            .password("admin")
+            .roles("USER", "ADMIN")
+            .build();
         users.add(admin);
         return new MapReactiveUserDetailsService( users);
     }

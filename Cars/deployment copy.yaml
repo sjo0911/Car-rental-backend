@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carkubernete
+  labels:
+    app: carkubernete
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: carkubernete
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: carkubernete
+      spec:
+        containers:
+        - image: sjo0911/cars
+        name: carkubernete-cars
+        resources:  {}

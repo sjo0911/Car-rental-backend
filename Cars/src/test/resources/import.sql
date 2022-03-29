@@ -1,2 +1,2 @@
-INSERT INTO Car (id, price_per_day, name, model) VALUES (1, 250, 'gammal Saab', 'Saab 900');
-INSERT INTO Car (id, price_per_day, name, model) VALUES (2, 250, 'gammal volvo', 'Volvo 240');
+INSERT INTO Car (id, price_per_day, name, model, active) VALUES (1, 250, 'Saab 900', 'small', true);
+INSERT INTO Car (id, price_per_day, name, model, active) VALUES (2, 250, 'Volvo 240', 'small', true);

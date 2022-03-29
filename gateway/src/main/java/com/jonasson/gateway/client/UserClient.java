@@ -8,15 +8,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
-@Component
+
 public class UserClient {
     private final String CUSTOMER_MICROSERVICE_NAME = "customer";
     private WebClient client;
 
-    @Autowired
+
     private DiscoveryClient discoveryClient;
 
-    @PostConstruct
     private void init(){
         ServiceInstance service = discoveryClient.getInstances(CUSTOMER_MICROSERVICE_NAME).stream().findFirst().orElse(null);
         client = WebClient.create(service.getUri().toString() + "/api/v1/customer/");

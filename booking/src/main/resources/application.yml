@@ -16,12 +16,12 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8081/eureka
+      defaultZone: http://eurekaserver:password@eureka:8761/eureka
 management:
   endpoints:
     web:
       exposure:
-        include: "health,beans"
+        include: "*"
 logging:
   level:
     root: INFO

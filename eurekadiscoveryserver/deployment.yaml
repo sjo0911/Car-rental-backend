@@ -3,22 +3,22 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: cars
-  name: cars
+    app: eureka
+  name: eureka
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cars
+      app: eureka
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: cars
+        app: eureka
     spec:
       containers:
-      - image: sjo0911/cars
-        name: cars
+      - image: sjo0911/eureka
+        name: eureka
         resources: {}
 status: {}
